@@ -18,16 +18,16 @@
 
 
 ### File
-main.py : 複数のプロセスを使って51% Attackの検証を行う
-virtual_currency.py : 仮想通貨の機能を持ったブロックチェーンのクラスとFlaskを使ったAPIの提供
-digital_signiture.py : 電子署名(楕円曲線DSA)の関数
-ellipti_curve.py : 楕円曲線上の演算のためのクラス
-galois_field.py : ガロア体(有限体)の演算のためのクラス
+main.py : 複数のプロセスを使って51% Attackの検証を行う  
+virtual_currency.py : 仮想通貨の機能を持ったブロックチェーンのクラスとFlaskを使ったAPIの提供  
+digital_signiture.py : 電子署名(楕円曲線DSA)の関数  
+ellipti_curve.py : 楕円曲線上の演算のためのクラス  
+galois_field.py : ガロア体(有限体)の演算のためのクラス  
 
 ### Class
-VC : 仮想通貨(*Virtual Currency*)を定義したクラス 
-EC : 楕円曲線(*Ellipti Curve*)上の演算のためのクラス
-GF : ガロア体(*Galois Field*)(有限体)の演算のためのクラス
+VC : 仮想通貨(*Virtual Currency*)を定義したクラス  
+EC : 楕円曲線(*Ellipti Curve*)上の演算のためのクラス  
+GF : ガロア体(*Galois Field*)(有限体)の演算のためのクラス  
 
 ### Reference
 ブロックチェーン部分の実装には[こちら](https://qiita.com/hidehiro98/items/841ece65d896aeaa8a2a)を参考にしました。
