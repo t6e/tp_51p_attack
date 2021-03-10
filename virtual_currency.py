@@ -72,7 +72,7 @@ class VC(object):  # Virtual Currency
         amount = 0
         for block in self.chain:
             for transaction in block["transactions"]:
-                # 多分Chain書き換えたらタプルじゃなくなる
+                # Chain書き換えたらタプルじゃなくなる
                 if tuple(owner) == tuple(transaction["recipient"]):
                     amount += transaction["amount"]
                 if(transaction["sender"] == None):  # ジェネシスブロック対策
@@ -107,7 +107,7 @@ class VC(object):  # Virtual Currency
 
     @staticmethod
     def valid_proof(last_block, proof):
-        return hashlib.sha256(f"{json.dumps(last_block, sort_keys=True).encode()}{proof}".encode()).hexdigest()[:4] == "0000"
+        return hashlib.sha256(f"{int(json.dumps(last_block, sort_keys=True).encode().hex(),16)*proof}".encode()).hexdigest()[:4] == "0000"
 
     def check(self, chain):
         for i in range(1, len(chain)):
