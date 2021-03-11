@@ -22,46 +22,6 @@ class GF(object):  # Galois field
         else:
             pass  # error or add func
 
-    def __neg__(self):
-        self.neg()
-        return self.neg()
-
-    def __add__(self, other):
-        other = self.is_GF(other)
-        return self.add(other)
-
-    def __sub__(self, other):
-        other = self.is_GF(other)
-        return self.sub(other)
-
-    def __mul__(self, other):
-        other = self.is_GF(other)
-        return self.mul(other)
-
-    def __truediv__(self, other):
-        other = self.is_GF(other)
-        return self.div(other)
-
-    def __radd__(self, other):
-        other = self.is_GF(other)
-        return other.add(self)
-
-    def __rsub__(self, other):
-        other = self.is_GF(other)
-        return other.sub(self)
-
-    def __rmul__(self, other):
-        other = self.is_GF(other)
-        return other.mul(self)
-
-    def __rtruediv__(self, other):
-        other = self.is_GF(other)
-        return other.div(self)
-
-    def __pow__(self, other):
-        if type(other) is int:
-            return self.pow(other)
-
     def neg(self):
         return GF(self.p - self.value % self.p, self.p)
 
@@ -102,6 +62,46 @@ class GF(object):  # Galois field
             return GF((self.value**other) % self.p, self.p)
         else:
             return 1/GF((self.value**(-other)) % self.p, self.p)
+
+    def __neg__(self):
+        self.neg()
+        return self.neg()
+
+    def __add__(self, other):
+        other = self.is_GF(other)
+        return self.add(other)
+
+    def __sub__(self, other):
+        other = self.is_GF(other)
+        return self.sub(other)
+
+    def __mul__(self, other):
+        other = self.is_GF(other)
+        return self.mul(other)
+
+    def __truediv__(self, other):
+        other = self.is_GF(other)
+        return self.div(other)
+
+    def __radd__(self, other):
+        other = self.is_GF(other)
+        return other.add(self)
+
+    def __rsub__(self, other):
+        other = self.is_GF(other)
+        return other.sub(self)
+
+    def __rmul__(self, other):
+        other = self.is_GF(other)
+        return other.mul(self)
+
+    def __rtruediv__(self, other):
+        other = self.is_GF(other)
+        return other.div(self)
+
+    def __pow__(self, other):
+        if type(other) is int:
+            return self.pow(other)
 
     def __eq__(self, other) -> bool:
         if type(other) is int:
