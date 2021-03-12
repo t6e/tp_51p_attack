@@ -86,27 +86,25 @@ else:
 
         n = 5
         while(message != "Chain Replaced"):
-            time.sleep(5)
-            response = request.urlopen(adress1+"/nodes/consensus")
-            message = str(json.loads(response.read())["message"])
-            num = owned_coin(key1[1], adress1)
-            if num < n:
-                break
             # Send
             send(key1, key2[1], n, adress1)
             # Mine
             mine(key1[1], adress1)
             # Consensus
-            request.urlopen(adress1+"/nodes/consensus")
+            response = request.urlopen(adress1+"/nodes/consensus")
+            message = str(json.loads(response.read())["message"])
             request.urlopen(adress2+"/nodes/consensus")
             # Confirm Chain Length
             response = request.urlopen(adress1+"/chain")
             print("Node1 Length : "+str(json.loads(response.read())["length"]))
             response = request.urlopen(adress2+"/chain")
             print("Node2 Length : "+str(json.loads(response.read())["length"]))
-            print(message)
-            print("Owner key1 in Node1: "+str(owned_coin(key1[1], adress1)))
-            print("Owner key2 in Node1: "+str(owned_coin(key2[1], adress1)))
+            print("Message : "+message)
+            print("Number of Coins : Owner key1 in Node1: " +
+                  str(owned_coin(key1[1], adress1)))
+            print("Number of Coins : Owner key2 in Node1: " +
+                  str(owned_coin(key2[1], adress1)))
+            time.sleep(5)
         print("======================================================================")
         print("=========================Successed 51% Attack=========================")
         print("======================================================================")
@@ -118,7 +116,6 @@ else:
         node3_l = int(json.loads(request.urlopen(
             adress3+"/chain").read())["length"])
         while(node1_l+1 >= node3_l):
-            time.sleep(2)
             # Mine
             mine(key1[1], adress3)
             response = request.urlopen(adress3+"/chain")
@@ -127,5 +124,9 @@ else:
             node3_l = int(json.loads(request.urlopen(
                 adress3+"/chain").read())["length"])
             print("Node3 Length : "+str(node3_l))
-            print("Owner key1 in Node3: "+str(owned_coin(key1[1], adress3)))
+            print("Number of Coins : Owner key1 in Node3: " +
+                  str(owned_coin(key1[1], adress3)))
+            print("Number of Coins : Owner key2 in Node3: " +
+                  str(owned_coin(key2[1], adress3)))
+            time.sleep(2)
         print('Ended Main process (PID: %s)' % os.getpid())

@@ -3,7 +3,7 @@ from galois_field import GF
 # Attention !!! : Insufficient Operater Priority Infomation
 
 
-class EC(object):  # Elliptic Curve  :EC(0, 0, self.a, self.b, self.p) is O
+class EC(object):  # Elliptic Curve
     def __init__(self, x, y, a, b, p):
         if not isinstance(x, GF):
             x = GF(x, p)
@@ -53,7 +53,7 @@ class EC(object):  # Elliptic Curve  :EC(0, 0, self.a, self.b, self.p) is O
         if isinstance(scalar, GF):
             scalar = scalar.value
         if type(scalar) is not int:
-            print("Error ??")
+            print("Error : Multiple for EC is not int")
             exit()
         bin_scalar = bin(scalar)[3:]
         result = self
