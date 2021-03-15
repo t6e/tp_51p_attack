@@ -76,6 +76,10 @@ class GF(object):  # Galois field
         other = self.is_GF(other)
         return self.sub(other)
 
+    def __mul__(self, other):
+        other = self.is_GF(other)
+        return self.mul(other)
+
     def __truediv__(self, other):
         other = self.is_GF(other)
         return self.div(other)
