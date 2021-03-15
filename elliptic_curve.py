@@ -1,6 +1,9 @@
 from galois_field import GF
 
-# Attention !!! : Insufficient Operater Priority Infomation
+"""
+Attention !!! : Insufficient Operater Priority Infomation
+class 'GF' * class 'EC' is not calculated because of circular reference
+"""
 
 
 class EC(object):  # Elliptic Curve
@@ -25,6 +28,9 @@ class EC(object):  # Elliptic Curve
                 exit()
 
     def add(self, other):
+        if not isinstance(other, type(self)):
+            print("Error : Add in Elliptic Curve is only class EC")
+            exit()
         if (self.a != other.a or self.b != other.b):
             print("Error : Different Elliptic Curve")
             exit()
@@ -42,7 +48,7 @@ class EC(object):  # Elliptic Curve
                 return EC(x, y, self.a, self.b, self.p)
             if (-self.y == other.y):
                 return EC(0, 0, self.a, self.b, self.p)
-            print("Error : Add in Elliptic Curve")
+            print("Error : Impossible Point")
             exit()
         phi = (other.y-self.y)/(other.x-self.x)
         x = phi**2-self.x-other.x
@@ -53,7 +59,7 @@ class EC(object):  # Elliptic Curve
         if isinstance(scalar, GF):
             scalar = scalar.value
         if type(scalar) is not int:
-            print("Error : Multiple for EC is not int")
+            print("Error : Multiple for EC is not int or Class 'GF'")
             exit()
         bin_scalar = bin(scalar)[3:]
         result = self

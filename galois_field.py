@@ -20,7 +20,8 @@ class GF(object):  # Galois field
             else:
                 return -GF(-x, self.p)
         else:
-            pass  # error or add func
+            print("Error : Type is only int or class 'GF'")
+            exit()
 
     def neg(self):
         return GF(self.p - self.value % self.p, self.p)
@@ -74,10 +75,6 @@ class GF(object):  # Galois field
     def __sub__(self, other):
         other = self.is_GF(other)
         return self.sub(other)
-
-    def __mul__(self, other):
-        other = self.is_GF(other)
-        return self.mul(other)
 
     def __truediv__(self, other):
         other = self.is_GF(other)
