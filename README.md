@@ -29,5 +29,14 @@ VC : 仮想通貨(*Virtual Currency*)を定義したクラス
 EC : 楕円曲線(*Ellipti Curve*)上の演算のためのクラス  
 GF : ガロア体(*Galois Field*)(有限体)の演算のためのクラス  
 
+### Usage
+以下のコマンドを入力。
+```
+python3 main.py
+```
+APIからのメッセージとnodeにおけるチェーンの長さとコインの保有量を表示されます。
+成功メッセージが表示されたあとはCtrl+Cで終了します。
+
+
 ### Reference
 ブロックチェーン部分の実装には[こちら](https://qiita.com/hidehiro98/items/841ece65d896aeaa8a2a)を参考にしました。
