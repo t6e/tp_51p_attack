@@ -2,8 +2,8 @@ import os
 import time
 
 pid = os.fork()
-if pid != 0:
-    from virtual_currency import app
+if pid != 0:  # サーバ用プロセス
+    from virtual_currency import app  # VCインスタンス
     pid = os.fork()
     if pid != 0:
         app.run(host='0.0.0.0', port=5000)
@@ -16,7 +16,7 @@ if pid != 0:
         else:
             app.run(host='0.0.0.0', port=5002)
             print('Ended Child process (PID: %s)' % os.getpid())
-else:
+else:  # ユーザ用プロセス
     from urllib import request
     import json
     from digital_signiture import sign, generate_key
@@ -26,7 +26,8 @@ else:
         'Content-Type': 'application/json',
     }
 
-    def mine(miner, adress):
+    # 以下の関数はAPIの使用を簡略化する
+    def mine(miner, adress):  # adressのノードでマイニングしminerに発掘コイン(10)を与える
         req_data = json.dumps({
             "public_key": str(miner),
         })
@@ -34,7 +35,7 @@ else:
                               method='POST', headers=req_header)
         return request.urlopen(req)
 
-    def send(sender, recipient, amount, adress):
+    def send(sender, recipient, amount, adress):  # adressのノード上でsenderからrecipientにamountのコインを送る
         message = str((sender[1], recipient, amount))
         req_data = json.dumps({
             "message": message,
@@ -44,7 +45,7 @@ else:
                               method='POST', headers=req_header)
         return request.urlopen(req)
 
-    def owned_coin(owner, adress):
+    def owned_coin(owner, adress):  # adressのノード上のonerのコインの所持数を返す
         req_data = json.dumps({
             "owner": str(owner)
         })
@@ -53,7 +54,7 @@ else:
         response = request.urlopen(req)
         return int(json.loads(response.read())["num"])
 
-    def nodes_register(node, others):
+    def nodes_register(node, others):  # nodeのノードにothers(他のノードのリスト)をコンセンサス相手として登録する
         req_data = json.dumps({
             "nodes": others
         })
@@ -61,6 +62,7 @@ else:
                               method='POST', headers=req_header)
         return request.urlopen(req)
 
+    # Adress
     adress1 = "http://localhost:5000"
     adress2 = "http://localhost:5001"
     adress3 = "http://localhost:5002"
@@ -70,11 +72,12 @@ else:
     nodes_register(adress2, [adress1, adress3])
     nodes_register(adress3, [adress1, adress2])
 
+    # Generate key pair(sercret key,publib key)
     key1 = generate_key()
     key2 = generate_key()
 
     pid = os.fork()
-    if pid != 0:
+    if pid != 0:  # 公開ノードのプロセス
         # Mine
         mine(key1[1], adress1)
 
@@ -109,7 +112,7 @@ else:
         print("=========================Successed 51% Attack=========================")
         print("======================================================================")
         print('Ended Main process (PID: %s)' % os.getpid())
-    else:
+    else:  # 非公開ノードのプロセス
         time.sleep(15)
         node1_l = int(json.loads(request.urlopen(
             adress1+"/chain").read())["length"])

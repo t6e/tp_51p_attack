@@ -15,7 +15,7 @@ Order = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
 G = EC(Gx, Gy, A, B, P)
 
 
-def sign(message, sec_k):
+def sign(message, sec_k):  # 署名する
     e = GF(int(hashlib.sha256(message.encode(
         "utf-8")).hexdigest(), 16), Order)
     k = GF(rand.randint(1, P-1), Order)
@@ -25,7 +25,7 @@ def sign(message, sec_k):
     return signiture
 
 
-def verificate(message, pub_k, signiture) -> bool:
+def verificate(message, pub_k, signiture) -> bool:  # 検証する
     r, s = signiture
     if not isinstance(r, GF):
         r = GF(int(r), Order)
@@ -42,7 +42,7 @@ def verificate(message, pub_k, signiture) -> bool:
     return x.value == r.value
 
 
-def generate_key():
+def generate_key():  # 公開鍵と秘密鍵のペアを作る
     sec_k = GF(rand.randint(1, P-1), Order)
     pub_k = G*sec_k
     return (sec_k.value, (pub_k.x.value, pub_k.y.value))
